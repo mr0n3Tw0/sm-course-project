@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "devschool"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+  backend:
+    build: backend/
+    command: java -jar app.jar
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://sm-course-project_postgres_1/devschool
+      DATASOURCE_USERNAME: postgres
+      DATASOURCE_PASSWORD: postgres
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - postgres
