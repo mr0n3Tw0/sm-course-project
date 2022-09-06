@@ -1,1 +1,0 @@
-ALTER TABLE student_course RENAME TO course_registration;
