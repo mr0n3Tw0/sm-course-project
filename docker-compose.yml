@@ -10,7 +10,7 @@ services:
       - "5432:5432"
   backend:
     build: backend/
-    command: java -jar app.jar
+    command: java -jar dev-school-app-1.0-SNAPSHOT.jar
     environment:
       DATASOURCE_URL: jdbc:postgresql://sm-course-project_postgres_1/devschool
       DATASOURCE_USERNAME: postgres
@@ -19,3 +19,10 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+  frontend:
+    build: frontend/
+    command: java -jar devschool-front-app-server-1.0.0.jar
+    ports: 
+      - "8081:8081"
+    depends_on:
+      - backend
