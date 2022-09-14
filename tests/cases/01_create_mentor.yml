@@ -1,0 +1,27 @@
+metadata:
+  name: create_mentor
+  version: 0.1
+
+
+request:
+  method: POST # GET, POST, DELETE etc...
+  url: /api/mentor # url path
+  json: # some json here
+    email: test@mail.com
+    firstName: test_name
+    lastName: test_last_name
+    phone: phone
+    version: 1
+
+
+
+expected:
+  non_strict: true # compare only exist fields
+  status_code: 201 # expected http status code
+  json: # expected result for response body here
+    email: test@mail.com
+    firstName: test_name
+    lastName: test_last_name
+    phone: phone
+    version: 1
+
