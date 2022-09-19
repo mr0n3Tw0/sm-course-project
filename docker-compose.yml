@@ -1,4 +1,4 @@
-version: "3"
+version: "2.4"
 services:
   postgres:
     image: postgres:13.3
@@ -8,8 +8,10 @@ services:
       POSTGRES_PASSWORD: "postgres"
     ports:
       - "5432:5432"
+
   backend:
     build: backend/
+    hostname: devschoolapp
     command: java -jar dev-school-app-1.0-SNAPSHOT.jar
     environment:
       DATASOURCE_URL: jdbc:postgresql://sm-course-project_postgres_1/devschool
@@ -19,10 +21,19 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+
   frontend:
     build: frontend/
     command: java -jar devschool-front-app-server-1.0.0.jar
     ports: 
       - "8081:8081"
+    depends_on:
+      - backend
+
+  tests:
+    build: tests/
+    command: ./wait-for-it.sh devschoolapp:8080 --strict --timeout=300 -- python -m pytest test_main.py -vv
+    environment:
+      DVS_HOSTNAME: http://devschoolapp:8080
     depends_on:
       - backend

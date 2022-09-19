@@ -12,7 +12,3 @@ def test_main(case):
     test = Case(read_yaml(case))
     actual = requests.request(**test.request)
     Validator.check_result(test.expected, actual)
-
-
-if __name__ == "__main__":
-    test_main()

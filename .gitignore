@@ -24,3 +24,7 @@ gradle-app.setting
 ##############################
 ## Python
 ##############################
+__pycache__/
+tests/.pytest_cache
+*.py[cod]
+*$py.class
