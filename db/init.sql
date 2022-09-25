@@ -1,0 +1,9 @@
+
+BEGIN;
+
+ALTER USER postgres WITH PASSWORD 'postgres';
+ALTER ROLE postgres CREATEDB;
+ALTER DATABASE devschool;
+
+COMMIT;
+

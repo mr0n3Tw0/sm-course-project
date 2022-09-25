@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sm-course-backend
+    labels:
+        app: devopsschool-back
+        env: dev
+        owner: shamil_murtazaliev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopsschool-back
+  template:
+    metadata:
+      labels:
+        app: devopsschool-back
+    spec:
+       containers:
+          - name: devopsschool-back
+            image: mronetw0/devops-school-backend:latest
+            env:
+              - name: DATASOURCE_URL
+                value: jdbc:postgresql://devopsschool-db/devschool
+            ports:
+              - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sm-course-db
+    labels:
+        app: devopsschool-db
+        env: dev
+        owner: shamil_murtazaliev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopsschool-db
+  template:
+    metadata:
+      labels:
+        app: devopsschool-db
+    spec:
+       containers:
+          - name: devopsschool-db
+            image: mronetw0/devops-school-db:latest
+            ports:
+              - containerPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sm-course-frontend
+    labels:
+        app: devopsschool-front
+        env: dev
+        owner: shamil_murtazaliev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopsschool-front
+  template:
+    metadata:
+      labels:
+        app: devopsschool-front
+    spec:
+       containers:
+          - name: devopsschool-front
+            image: mronetw0/devops-school-frontend:latest
+            env:
+              - name: HOST
+                value: "devopsschool-back"
+            ports:
+              - containerPort: 8081

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sm-course-project
+    labels:
+        app: devopsschool
+        env: dev
+        owner: shamil_murtazaliev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devopsschool
+  template:
+    metadata:
+      labels:
+        app: devopsschool
+    spec:
+       containers:
+          - name: devopsschool-app
+            image: mronetw0/devops-school-backend:latest
+            ports:
+              - containerPort: 8080
+          - name: devopsschool-db
+            image: mronetw0/devops-school-db:latest
+            ports:
+              - containerPort: 5432
